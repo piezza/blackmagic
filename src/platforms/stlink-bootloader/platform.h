@@ -33,12 +33,13 @@
 #include <libopencm3/stm32/f1/memorymap.h>
 #include <libopencm3/usb/usbd.h>
 
-#define BOARD_IDENT       "Black Magic Probe (STLINK), (Firmware " FIRMWARE_VERSION ")"
+//#define BOARD_IDENT       "Black Magic Probe (STLINK), (Firmware " FIRMWARE_VERSION ")"
 #define BOARD_IDENT_DFU   "Black Magic (Upgrade) for STLink/Discovery, (Firmware " FIRMWARE_VERSION ")"
 #define BOARD_IDENT_UPD   "Black Magic (DFU Upgrade) for STLink/Discovery, (Firmware " FIRMWARE_VERSION ")"
-#define DFU_IDENT         "Black Magic Firmware Upgrade (STLINK)"
+//#define DFU_IDENT         "Black Magic Firmware Upgrade (STLINK)"
 #define DFU_IFACE_STRING  "@Internal Flash   /0x08000000/8*001Ka,56*001Kg"
 #define UPD_IFACE_STRING  "@Internal Flash   /0x08000000/8*001Kg"
+#define PLATFORM_IDENT    "(STLINK/V2) "
 
 /* Important pin mappings for STM32 implementation:
  *
@@ -99,7 +100,7 @@
 	gpio_set_mode(USBUSART_PORT, GPIO_MODE_OUTPUT_2_MHZ, \
 	              GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, USBUSART_TX_PIN);
 
-#define USB_DRIVER      stm32f103_usb_driver
+#define USB_DRIVER      st_usbfs_v1_usb_driver
 #define USB_IRQ	        NVIC_USB_LP_CAN_RX0_IRQ
 #define USB_ISR	        usb_lp_can_rx0_isr
 /* Interrupt priorities.  Low numbers are high priority.

@@ -33,7 +33,7 @@
 #include <libopencm3/usb/usbd.h>
 #include <libopencm3/stm32/adc.h>
 
-uint8_t running_status;
+//uint8_t running_status;
 volatile uint32_t timeout_counter;
 
 uint16_t led_idle_run;
@@ -65,7 +65,7 @@ int platform_hwversion(void)
 
 void platform_init(void)
 {
-	rcc_clock_setup_in_hse_8mhz_out_72mhz();
+	rcc_clock_setup_pll(&rcc_hse_configs[RCC_CLOCK_HSE8_72MHZ]);
 
 	/* Re-enumerate USB */
 	rcc_periph_reset_pulse(RST_USB);
@@ -88,7 +88,7 @@ void platform_init(void)
 	if (platform_hwversion() == 1)
 	{
 		RCC_CFGR &= ~(0xf << 24);
-		RCC_CFGR |= (RCC_CFGR_MCO_HSECLK << 24);
+		RCC_CFGR |= (RCC_CFGR_MCO_HSE << 24);
 		gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
 		GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO8);
 	}
